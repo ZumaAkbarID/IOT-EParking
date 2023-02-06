@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('test_api', function (Blueprint $table) {
+        Schema::create('parking', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_local');
-            $table->string('ip_machine');
-            $table->string('machine_key');
-            $table->integer('available');
-            $table->integer('inside');
-            $table->text('map');
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_api');
+        Schema::dropIfExists('parking');
     }
 };

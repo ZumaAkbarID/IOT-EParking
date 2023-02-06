@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->id();
+            $table->uuid('submission_uuid');
             $table->uuid();
-            $table->string('name');
-            $table->string('phone_number');
-            $table->enum('role', ['Admin', 'Pengurus'])->default('Pengurus');
-            $table->string('bussines_uuid')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('business_name');
+            $table->text('bussines_description');
+            $table->text('bussines_address');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('businesses');
     }
 };

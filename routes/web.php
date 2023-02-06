@@ -1,4 +1,8 @@
 <?php
+// Authentication
+use App\Http\Controllers\Auth\Login as AuthLogin;
+// Guest
+use App\Http\Controllers\Guest\Main as GuestMain;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -14,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Guest
+Route::get('/', [GuestMain::class, 'index']);
 
-Route::get('/esp/{ip}/{machine_id}/{slots}', function ($ip, $machine_id, $slots) {
-    Log::info("IP : {$ip}\nMachine ID : {$machine_id}\nSlots : {$slots}");
-    return response("IP : {$ip}\nMachine ID : {$machine_id}\nSlots : {$slots}", 200);
+// Authentication
+Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
+    // Login
+    Route::get('login', [AuthLogin::class, 'form'])->name('Auth.Login');
+    Route::post('login', [AuthLogin::class, 'process']);
 });
