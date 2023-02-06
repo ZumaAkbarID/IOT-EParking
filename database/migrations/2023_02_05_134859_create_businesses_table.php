@@ -18,8 +18,8 @@ return new class extends Migration
             $table->uuid('submission_uuid');
             $table->uuid();
             $table->string('business_name');
-            $table->text('bussines_description');
-            $table->text('bussines_address');
+            $table->text('business_description');
+            $table->text('business_address');
             $table->timestamps();
         });
     }

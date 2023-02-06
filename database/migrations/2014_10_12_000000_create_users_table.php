@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone_number');
             $table->enum('role', ['Admin', 'Pengurus'])->default('Pengurus');
-            $table->string('bussines_uuid')->nullable();
+            $table->string('business_uuid')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->uuid();
             $table->string('submiter_name');
             $table->string('submiter_phone_number');
-            $table->string('bussines_name');
-            $table->text('bussines_description');
-            $table->text('bussines_address');
+            $table->string('business_name');
+            $table->text('business_description');
+            $table->text('business_address');
             $table->enum('status', ['approved', 'review', 'rejected'])->default('review');
             $table->text('reject_reason')->nullable();
             $table->timestamps();

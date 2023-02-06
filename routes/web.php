@@ -1,9 +1,10 @@
 <?php
 // Authentication
 use App\Http\Controllers\Auth\Login as AuthLogin;
+use App\Http\Controllers\Auth\Logout as AuthLogout;
 // Guest
 use App\Http\Controllers\Guest\Main as GuestMain;
-
+use App\Http\Controllers\Guest\SubmissionBusiness;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,14 @@ Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
     // Login
     Route::get('login', [AuthLogin::class, 'form'])->name('Auth.Login');
     Route::post('login', [AuthLogin::class, 'process']);
+});
+
+// Guest
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('submission', [SubmissionBusiness::class, 'form'])->name('SubmissionBusiness');
+    Route::post('submission', [SubmissionBusiness::class, 'process']);
+});
+
+Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
+    Route::get('logout', [AuthLogout::class, 'process'])->name('Auth.Logout');
 });

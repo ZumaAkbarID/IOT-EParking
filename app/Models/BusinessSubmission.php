@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessSubmission extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
 }

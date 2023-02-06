@@ -19,6 +19,8 @@ class Main extends Controller
                 'total' => $total
             ]);
         }
-        return view('Guest.landing');
+        return view('Layouts.guest', [
+            'title' => 'Landing Page'
+        ]);
     }
 }
