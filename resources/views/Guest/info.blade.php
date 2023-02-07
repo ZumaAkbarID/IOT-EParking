@@ -1,16 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layouts.guest')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Info {{ $place }}</title>
-</head>
+@section('guest_content')
+    <div class="container">
 
-<body>
-    Informasi untuk tempat : {{ $place }} <br>
-    Tersedia : {{ $available }} dari total : {{ $total }}
-</body>
+        <h1 class="mt-3 mb-0">Informasi {{ $place }}</h1>
 
-</html>
+        <section class="row mt-0">
+
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h4 class="card-title">Parkiran Tersedia</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="">{{ number_format($available, 0, '.', ',') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h4 class="card-title">Parkiran Terpakai</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="">{{ number_format($total - $available, 0, '.', ',') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h4 class="card-title">Jumlah Pakiran Tersedia</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="">{{ number_format($total, 0, '.', ',') }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            TABEL
+        </section>
+
+    </div>
+@endsection

@@ -53,11 +53,13 @@ class DatabaseSeeder extends Seeder
         $demoBusinessName = 'Demo Bisnis';
         $demoBusinessDescription = 'Demo bisnis untuk testing';
         $demoBusinessAddress = 'Jl. Ringroad Utara';
+        $demoBusinessThumbnail = 'business-thumbnail/demo.jpg';
         BusinessSubmission::factory()->create([
             'uuid' => $submissionUuid,
             'submiter_name' => $demoName,
             'submiter_phone_number' => $demoPhone,
             'business_name' => $demoBusinessName,
+            'business_thumbnail' => $demoBusinessThumbnail,
             'business_description' => $demoBusinessDescription,
             'business_address' => $demoBusinessAddress,
             'status' => 'approved',
@@ -68,6 +70,7 @@ class DatabaseSeeder extends Seeder
             'submission_uuid' => $submissionUuid,
             'uuid' => $demoBusinessUuid,
             'business_name' => $demoBusinessName,
+            'business_thumbnail' => $demoBusinessThumbnail,
             'business_description' => $demoBusinessDescription,
             'business_address' => $demoBusinessAddress
         ]);

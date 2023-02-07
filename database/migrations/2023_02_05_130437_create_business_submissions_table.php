@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('submiter_name');
             $table->string('submiter_phone_number');
             $table->string('business_name');
+            $table->string('business_thumbnail');
             $table->text('business_description');
             $table->text('business_address');
             $table->enum('status', ['approved', 'review', 'rejected'])->default('review');

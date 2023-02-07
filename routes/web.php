@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 // Guest
 Route::get('/', [GuestMain::class, 'index']);
+Route::get('/cari/{uuid}', [GuestMain::class, 'index'])->name('Search');
+Route::post('/search/{cari}', [GuestMain::class, 'search']);
 
 // Authentication
 Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
