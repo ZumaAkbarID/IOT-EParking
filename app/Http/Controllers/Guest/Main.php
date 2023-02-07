@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Events\ParkiranUpdate;
 use App\Http\Controllers\Controller;
 use App\Models\Business;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class Main extends Controller
         if ($request->uuid) {
 
             $query = Business::where('uuid', $request->uuid)->first();
+            ParkiranUpdate::dispatch('halow');
 
             return view('Guest.info', [
                 'title' => $query->business_name,
