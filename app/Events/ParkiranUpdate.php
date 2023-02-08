@@ -7,14 +7,15 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ParkiranUpdate implements ShouldBroadcast
+class ParkiranUpdate implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $business_name = 'tes';
+    public $business_name;
 
     /**
      * Create a new event instance.
@@ -33,6 +34,7 @@ class ParkiranUpdate implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('parkiranUpdate');
+        return new Channel('message');
+        // return ['message' => $this->business_name];
     }
 }

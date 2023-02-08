@@ -1,9 +1,13 @@
 @extends('Layouts.guest')
 
+@section('guest_style')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+@endsection
+
 @section('guest_content')
     <div class="container">
 
-        <h3 class="mt-3">Informasi {{ $place }}</h3>
+        <h3 class="mt-3 mb-4">Informasi {{ $place }}</h3>
 
         <section class="row mt-0">
 
@@ -49,51 +53,50 @@
                     'place_1' => rand(0, 1),
                     'place_2' => rand(0, 1),
                     'place_3' => rand(0, 1),
+                    'place_4' => rand(0, 1),
+                    'place_5' => rand(0, 1),
+                    'place_6' => rand(0, 1),
+                    'place_7' => rand(0, 1),
+                    'place_8' => rand(0, 1),
+                    'place_9' => rand(0, 1),
+                    'place_10' => rand(0, 1),
+                    'place_11' => rand(0, 1),
+                    'place_12' => rand(0, 1),
+                    'place_13' => rand(0, 1),
+                    'place_14' => rand(0, 1),
+                    'place_15' => rand(0, 1),
                 ];
+                $countedData = count($data);
+                $dataTable = round($countedData / 3);
             @endphp
 
             <div class="row">
-                <div class="col-4">
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </table>
+                <div class="col-lg-12">
 
-                    <table class="table table-bordered">
-                        @for ($i = 1; $i <= count($data); $i++)
-                            <tr>
-                                <td>Car {{ $i }}</td>
-                                <td>: {{ $data['place_' . $i] == 1 ? 'Dipakai' : 'Kosong' }}</td>
-                            </tr>
-                        @endfor
-                    </table>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered" id="parkiran-tb">
+                                <thead>
+                                    <tr>
+                                        <th>Kode</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </table>
-
-                </div>
-
-                <div class="col-4">
-
-                    <table class="table table-bordered">
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </table>
-
-                    <table class="table table-bordered">
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </table>
+                                <tbody>
+                                    @for ($i = 1; $i <= count($data); $i++)
+                                        <tr>
+                                            <td>Car {{ $i }}</td>
+                                            <td>: {{ $data['place_' . $i] == 1 ? 'Dipakai' : 'Kosong' }}</td>
+                                        </tr>
+                                    @endfor
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                 </div>
-            </div>
 
         </section>
 
@@ -101,5 +104,24 @@
 @endsection
 
 @section('guest_script')
-    <script src="/build/assets/app-0ee73409.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script>
+        // Pusher.logToConsole = true;
+
+        $(document).ready(function() {
+            $('#parkiran-tb').DataTable();
+        });
+
+        var pusher = new Pusher('077a1f50c5eac9602b7b', {
+            cluster: 'ap1',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('message');
+
+        channel.bind('ParkiranUpdate', function(data) {
+            console.log(JSON.stringify(data));
+        });
+    </script>
 @endsection

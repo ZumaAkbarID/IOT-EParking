@@ -34,6 +34,6 @@ window.Echo = new Echo({
     enabledTransports: ['ws', 'wss'],
 });
 
-window.Echo.channel('parkiranUpdate').listen('ParkiranUpdate', (event) => {
+window.Echo.channel('message').listen('ParkiranUpdate', (event) => {
   console.log(event);
 });

@@ -12,6 +12,7 @@
 
     <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo/favicon.png" type="image/png">
+    @yield('guest_style')
 </head>
 
 <body class="theme-dark">

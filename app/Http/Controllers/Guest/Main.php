@@ -14,7 +14,8 @@ class Main extends Controller
         if ($request->uuid) {
 
             $query = Business::where('uuid', $request->uuid)->first();
-            ParkiranUpdate::dispatch('halow');
+
+            ParkiranUpdate::dispatch('HAHAHA');
 
             return view('Guest.info', [
                 'title' => $query->business_name,
