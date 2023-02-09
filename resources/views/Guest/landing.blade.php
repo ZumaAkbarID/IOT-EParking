@@ -1,7 +1,7 @@
 @extends('Layouts.guest')
 
 @section('guest_content')
-    <div class="container">
+    <div class="content-wrapper container">
         <div class="card mt-5">
             <div class="card-header">
                 <h4 class="card-title">Selamat datang di E-Parking</h4>
@@ -40,7 +40,7 @@
                 let cari = $('#cari').val();
                 $.ajax({
                     type: "post",
-                    url: "/search/" + cari,
+                    url: "/ajax/cari/" + cari,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -49,7 +49,6 @@
                     },
                     success: function(data) {
                         if (data.status == true) {
-                            console.log(data.message);
                             $('#place').html(data.html);
                         } else {
                             alert(data.message);

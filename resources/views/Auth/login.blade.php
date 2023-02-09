@@ -1,24 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layouts.guest')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LOGIN</title>
-</head>
+@section('guest_content')
+    <div class="content-wrapper container mb-5">
 
-<body>
-    <form action="" method="post">
-        @csrf
-        <label for="phone">Nomor HP</label>
-        <input type="text" name="phone" id="phone">
-        <br>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-        <br>
-        <button type="submit">Login</button>
-    </form>
-</body>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-sm-12">
+                <div class="card my-5">
+                    <div class="card-header">
+                        <h6 class="card-title">Login</h6>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            @csrf
 
-</html>
+                            <div class="form-group mb-3">
+                                <label for="phone">Nomor HP</label>
+                                <input type="text" name="phone" id="phone" class="form-control" required
+                                    placeholder="08xxx">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+
+                            <div class="form-group text-center mb-3">
+                                <button type="submit" class="w-50 btn btn-primary">Login</button>
+                            </div>
+
+                        </form>
+
+                        <div class="">
+                            <p>Lupa password? <a href="">Hubungi Admin</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@endsection
+
+@section('guest_script')
+    @include('Layouts.sweetalert2')
+@endsection

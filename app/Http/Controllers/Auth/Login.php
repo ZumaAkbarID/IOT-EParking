@@ -10,7 +10,9 @@ class Login extends Controller
 {
     public function form()
     {
-        return view('Auth.login');
+        return view('Auth.login', [
+            'title' => 'Login | E-Parking'
+        ]);
     }
 
     public function process(Request $request)

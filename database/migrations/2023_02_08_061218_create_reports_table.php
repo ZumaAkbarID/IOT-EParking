@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('machines', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->uuid('business_uuid');
-            $table->string('machine_name');
-            $table->integer('total_sensor')->default(0);
-            $table->integer('price_each_sensor')->default(0);
+            $table->uuid('machine_uuid');
+            $table->string('gate');
+            $table->integer('price_rate')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machines');
+        Schema::dropIfExists('reports');
     }
 };

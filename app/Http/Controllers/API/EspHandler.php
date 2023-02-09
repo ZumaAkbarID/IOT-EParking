@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\ParkiranUpdate;
 use App\Http\Controllers\Controller;
+use App\Models\Machine;
+use App\Models\Parking;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -21,8 +25,59 @@ class EspHandler extends Controller
         $str = substr($str, 1);
         $str = str_replace('#', '', $str);
         $parsedJson = json_decode($str, true);
+        // return Log::info($str);
 
-        $txt = "API : {$parsedJson['api_key']}\nKUNCI MESIN : {$parsedJson['machine_key']}\nTERSEDIA : {$parsedJson['available']}\nTOTAL : {$parsedJson['inside']}\n\nTMPAT 1 : {$parsedJson['map']['place_1']}\nTMPAT 2 : {$parsedJson['map']['place_2']}\nTMPAT 3 : {$parsedJson['map']['place_3']}";
+        $machine = Machine::where('uuid', $parsedJson['machine_id'])->where('business_uuid', $parsedJson['business_id'])->first();
+
+        // ParkiranUpdate::dispatch($str);
+        event(new ParkiranUpdate($str));
+
+        if ($parsedJson['sender'] == 'sensor') {
+            try {
+                $checkParking = Parking::where('business_uuid', $parsedJson['business_id'])->where('machine_uuid', $parsedJson['machine_id'])->first();
+
+                if (!empty($checkParking)) {
+                    Parking::where('business_uuid', $parsedJson['business_id'])->where('machine_uuid', $parsedJson['machine_id'])->delete();
+
+                    $input = Parking::create([
+                        'business_uuid' => $parsedJson['business_id'],
+                        'machine_uuid' => $parsedJson['machine_id'],
+                        'map' => json_encode($parsedJson['map']),
+                    ]);
+
+                    Log::info("Parking Inputed id : " . $input->id . ". Old Parking Deleted");
+                } else {
+                    $input = Parking::create([
+                        'business_uuid' => $parsedJson['business_id'],
+                        'machine_uuid' => $parsedJson['machine_id'],
+                        'map' => json_encode($parsedJson['map']),
+                    ]);
+                    Log::info("Parking Inputed id : " . $input->id);
+                }
+
+                return response()->json(['status' => true]);
+            } catch (\Exception $e) {
+                Log::error("Error When Inputing API Map to DB : " . $e);
+                return response()->json(['status' => false]);
+            }
+        } else {
+            try {
+                $insert = Report::create([
+                    'business_uuid' => $parsedJson['business_id'],
+                    'machine_uuid' => $parsedJson['machine_id'],
+                    'gate' => $parsedJson['sender'],
+                    'price_rate' => $machine->price_each_sensor
+                ]);
+                Log::info("Gate In ID : " . $insert->id);
+
+                return response()->json(['status' => true]);
+            } catch (\Exception $e) {
+                Log::error("Error When Inputing API Gate to DB : " . $e);
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $txt = "SENDER : {$parsedJson['sender']}\nID Usaha : {$parsedJson['business_id']}\nID MESIN : {$parsedJson['machine_id']}\n";
 
         Log::info($txt);
         return 1;

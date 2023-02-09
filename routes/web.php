@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\Logout as AuthLogout;
 // Guest
 use App\Http\Controllers\Guest\Main as GuestMain;
 use App\Http\Controllers\Guest\SubmissionBusiness;
+// Admin
+use App\Http\Controllers\Admin\Dashboard as AdminDashboard;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +25,8 @@ use Illuminate\Support\Facades\Route;
 // Guest
 Route::get('/', [GuestMain::class, 'index']);
 Route::get('/cari/{uuid}', [GuestMain::class, 'index'])->name('Search');
-Route::post('/search/{cari}', [GuestMain::class, 'search']);
+Route::post('/ajax/cari/{cari}', [GuestMain::class, 'search']);
+Route::post('/ajax/table/{uuid}/{machine_id}', [GuestMain::class, 'table']);
 
 // Authentication
 Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
@@ -39,4 +43,9 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     Route::get('logout', [AuthLogout::class, 'process'])->name('Auth.Logout');
+});
+
+// Admin
+Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], function () {
+    Route::get('/', [AdminDashboard::class, 'index'])->name('Admin.Dashboard');
 });

@@ -11,20 +11,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ParkiranUpdate implements ShouldBroadcastNow
+class ParkiranUpdate implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $business_name;
+    public $json;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($business_name)
+    public function __construct($json)
     {
-        $this->business_name = $business_name;
+        $this->json = $json;
     }
 
     /**
@@ -34,7 +34,13 @@ class ParkiranUpdate implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('message');
+        // return new Channel('update');
         // return ['message' => $this->business_name];
+        return ['update-parkiran'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'event-parkiran-' . json_decode($this->json, true)['business_id'];
     }
 }

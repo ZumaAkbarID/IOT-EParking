@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'approved',
         ]);
 
-        $demoBusinessUuid = Str::uuid()->toString();
+        $demoBusinessUuid = 'c750e031-8669-4317-9d5f-c5556f11925d';
         Business::factory()->create([
             'submission_uuid' => $submissionUuid,
             'uuid' => $demoBusinessUuid,
@@ -75,10 +75,11 @@ class DatabaseSeeder extends Seeder
             'business_address' => $demoBusinessAddress
         ]);
 
-        $demoMachineUuid = Str::uuid()->toString();
+        $demoMachineUuid = '0e9b8061-3c73-44d2-b804-eaf43404fc8c';
         Machine::factory()->create([
             'uuid' => $demoMachineUuid,
             'business_uuid' => $demoBusinessUuid,
+            'machine_name' => "Blok A",
             'total_sensor' => 3,
             'price_each_sensor' => 2000,
         ]);

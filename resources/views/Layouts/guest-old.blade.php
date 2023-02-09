@@ -12,35 +12,29 @@
 
     <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo/favicon.png" type="image/png">
-
-    <link rel="stylesheet" href="{{ asset('/') }}assets/css/shared/iconly.css">
-
-    <link rel="stylesheet" href="{{ asset('/') }}assets/extensions/sweetalert2/sweetalert2.min.css">
     @yield('guest_style')
-
 </head>
 
 <body class="theme-dark">
-    <div id="app">
-        <div id="main" class="layout-horizontal">
 
-            @include('Layouts.guest-navbar')
-
-            @yield('guest_content')
-
-            @include('Layouts.guest-footer')
+    <nav class="navbar navbar-light">
+        <div class="container d-block">
+            @if (!is_null(Request::segment(1)))
+                <a href="{{ url('/') }}"><i class="bi bi-chevron-left"></i></a>
+            @endif
+            <a class="navbar-brand ms-4" href="{{ url('/') }}">
+                <img src="{{ asset('/') }}assets/images/logo/logo.svg">
+            </a>
 
         </div>
-    </div>
+    </nav>
+
+
+    @yield('guest_content')
 
     <script src="{{ asset('/') }}assets/extensions/jquery/jquery.min.js"></script>
-    <script src="{{ asset('/') }}assets/js/bootstrap.js"></script>
-    <script src="{{ asset('/') }}assets/js/app.js"></script>
-    <script src="{{ asset('/') }}assets/js/pages/horizontal-layout.js"></script>
-    <script src="{{ asset('/') }}assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 
     @yield('guest_script')
-
 </body>
 
 </html>
