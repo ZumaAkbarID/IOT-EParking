@@ -31,6 +31,7 @@
         <section id="place"></section>
 
     </div>
+    </div>
 @endsection
 
 @section('guest_script')

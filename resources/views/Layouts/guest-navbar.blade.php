@@ -2,6 +2,9 @@
     <div class="header-top">
         <div class="container">
             <div class="logo">
+                @if (!is_null(Request::segment(1)))
+                    <a href="{{ url('/') }}"><i class="bi bi-chevron-left"></i></a>
+                @endif
                 <a href="{{ url('/') }}"><img src="{{ asset('/') }}assets/images/logo/logo.svg" alt="Logo"></a>
             </div>
 
@@ -18,12 +21,12 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/{{ strtolower(Auth::user()->role) }}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="#">Pengaturan</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="auth-login.html">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('Auth.Logout') }}">Logout</a></li>
                         </ul>
                     </div>
                 @else
@@ -73,6 +76,20 @@
                     <a href="#" class='menu-link'>
                         <i class="bi bi-telephone"></i>
                         <span>Hubungi Kami</span>
+                    </a>
+                </li>
+
+                <li class="menu-item" id="light-mode">
+                    <a href="#" class='menu-link'>
+                        <i class="bi bi-sun"></i>
+                        <span>Mode Terang</span>
+                    </a>
+                </li>
+
+                <li class="menu-item" id="dark-mode">
+                    <a href="#" class='menu-link'>
+                        <i class="bi bi-moon"></i>
+                        <span>Mode Gelap</span>
                     </a>
                 </li>
 

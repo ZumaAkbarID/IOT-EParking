@@ -28,7 +28,7 @@
 
             @yield('guest_content')
 
-            @include('Layouts.guest-footer')
+            @include('Layouts.footer')
 
         </div>
     </div>
@@ -36,6 +36,7 @@
     <script src="{{ asset('/') }}assets/extensions/jquery/jquery.min.js"></script>
     <script src="{{ asset('/') }}assets/js/bootstrap.js"></script>
     <script src="{{ asset('/') }}assets/js/app.js"></script>
+    <script src="{{ asset('/') }}assets/js/switchTheme.js"></script>
     <script src="{{ asset('/') }}assets/js/pages/horizontal-layout.js"></script>
     <script src="{{ asset('/') }}assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 

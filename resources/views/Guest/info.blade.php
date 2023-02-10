@@ -94,6 +94,7 @@
         </section>
 
     </div>
+    </div>
 @endsection
 
 @section('guest_script')
@@ -143,15 +144,25 @@
                         $('#holder-tb-' + machine_id).html(data.html);
                         dataTb(machine_id);
                     } else {
-                        alert(data.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: data.message
+                        });
                     }
                 },
             });
         }
 
-        @foreach ($machines as $machine)
+        @forelse ($machines as $machine)
             getTb(uuid, "{{ $machine->uuid }}");
-        @endforeach
+        @empty
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: "Pemilik usaha belum mengatur mesin & sensor"
+            });
+        @endforelse
 
         let total = $('#total').val();
         let used = 0;

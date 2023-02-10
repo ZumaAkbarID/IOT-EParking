@@ -1,7 +1,7 @@
 @extends('Layouts.guest')
 
 @section('guest_content')
-    <div class="content-wrapper container mb-5">
+    <div class="content-wrapper container">
 
         <div class="row justify-content-center">
             <div class="col-lg-6 col-sm-12">
@@ -39,6 +39,7 @@
             </div>
         </div>
 
+    </div>
     </div>
 @endsection
 

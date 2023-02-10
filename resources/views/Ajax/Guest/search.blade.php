@@ -2,8 +2,8 @@
     <div class="col-md-4 col-sm-12">
         <div class="card">
             <div class="card-content">
-                <img class="card-img-top img-fluid" src="{{ asset('/') . $item->business_thumbnail }}" alt="Card image cap"
-                    style="height: 20rem" />
+                <img class="card-img-top img-fluid" src="{{ asset('/storage') . '/' . $item->business_thumbnail }}"
+                    alt="Card image cap" style="height: 20rem" />
                 <div class="card-body">
                     <h4 class="card-title">{{ $item->business_name }}</h4>
                     <p class="card-text text-truncate">

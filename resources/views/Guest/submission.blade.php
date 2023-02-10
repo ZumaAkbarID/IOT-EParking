@@ -10,7 +10,7 @@
                         <h6 class="card-title">Kirim Pengajuan Usaha</h6>
                     </div>
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">

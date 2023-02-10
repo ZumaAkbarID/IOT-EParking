@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('parkiranku')
         ]);
 
-        $demoBusiness = Str::uuid()->toString();
+        $demoBusiness = 'c750e031-8669-4317-9d5f-c5556f11925d';
         $demoName = 'Demo';
         $demoPhone = '08123456789';
         User::factory()->create([
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'approved',
         ]);
 
-        $demoBusinessUuid = 'c750e031-8669-4317-9d5f-c5556f11925d';
+        $demoBusinessUuid = $demoBusiness;
         Business::factory()->create([
             'submission_uuid' => $submissionUuid,
             'uuid' => $demoBusinessUuid,

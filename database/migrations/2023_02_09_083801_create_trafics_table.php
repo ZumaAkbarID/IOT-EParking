@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('businesses', function (Blueprint $table) {
+        Schema::create('trafics', function (Blueprint $table) {
             $table->id();
-            $table->uuid('submission_uuid');
-            $table->uuid();
-            $table->string('business_name');
-            $table->string('business_thumbnail');
-            $table->text('business_description');
-            $table->text('business_address');
-            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
+            $table->string('ip_address');
+            $table->enum('type', ['parent', 'child']);
+            $table->uuid('business_uuid')->nullable();
+            $table->string('url');
+            $table->text('useragent');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('businesses');
+        Schema::dropIfExists('trafics');
     }
 };
