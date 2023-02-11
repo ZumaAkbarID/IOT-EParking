@@ -109,11 +109,25 @@
                     </li> --}}
                 @elseif(Auth::user()->role == 'Pengurus')
                     <li class="sidebar-title">- Pengurus</li>
+
+                    <li class="sidebar-item @if (Request::segment(1) == 'pengurus' && Request::segment(2) == null) active @endif">
+                        <a href="/{{ strtolower(Auth::user()->role) }}" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item @if (Request::segment(2) == 'business') active @endif">
+                        <a href="{{ route('Pengurus.Business.Edit') }}" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Edit Usaha</span>
+                        </a>
+                    </li>
                 @endif
 
                 <li class="sidebar-title">- Akun</li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item @if (Request::segment(1) == 'profile' && Request::segment(2) == null) active @endif">
                     <a href="{{ route('Profile.Settings') }}" class="sidebar-link">
                         <i class="bi bi-gear"></i>
                         <span>Pengaturan</span>

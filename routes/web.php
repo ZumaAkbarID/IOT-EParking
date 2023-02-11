@@ -18,6 +18,10 @@ use App\Http\Controllers\Admin\Machine\Add as AdminMachineAdd;
 use App\Http\Controllers\Admin\Machine\Edit as AdminMachineEdit;
 use App\Http\Controllers\Admin\User\Edit as AdminUserEdit;
 use App\Http\Controllers\Admin\Report\View as AdminReportView;
+// Prngurus
+use App\Http\Controllers\Pengurus\Dashboard as PengurusDashboard;
+use App\Http\Controllers\Pengurus\Business\Edit as PengurusBusinessEdit;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +41,11 @@ Route::get('/', [GuestMain::class, 'index']);
 Route::get('/cari/{uuid}', [GuestMain::class, 'index'])->name('Search');
 Route::post('/ajax/cari/{cari}', [GuestMain::class, 'search']);
 Route::post('/ajax/table/{uuid}/{machine_id}', [GuestMain::class, 'table']);
+Route::get('/about-us', function () {
+    return view('Guest.about', [
+        'title' => 'Tentang Kami | E-Parking'
+    ]);
+})->name('About.Us');
 
 // Authentication
 Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
@@ -100,5 +109,16 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     // Report
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', [AdminReportView::class, 'all'])->name('Admin.Report.All');
+    });
+});
+
+Route::group(['middleware' => ['auth', 'isPengurus'], 'prefix' => 'pengurus'], function () {
+    // Dashboard
+    Route::get('/', [PengurusDashboard::class, 'index'])->name('Pengurus.Dashboard');
+
+    // Business
+    Route::group(['prefix' => 'business'], function () {
+        Route::get('', [PengurusBusinessEdit::class, 'form'])->name('Pengurus.Business.Edit');
+        Route::post('', [PengurusBusinessEdit::class, 'process']);
     });
 });

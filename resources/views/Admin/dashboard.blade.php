@@ -251,7 +251,7 @@
             },
             plotOptions: {},
             series: [{
-                name: "Jumlah Trafic",
+                name: "Jumlah",
                 data: [
                     @for ($i = 0; $i < 12; $i++)
                         {{ $trafic['monthly'][$i] }},
@@ -261,18 +261,18 @@
             colors: "#435ebe",
             xaxis: {
                 categories: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Agustus",
+                    "September",
+                    "Oktober",
+                    "November",
+                    "Desember",
                 ],
             },
         }

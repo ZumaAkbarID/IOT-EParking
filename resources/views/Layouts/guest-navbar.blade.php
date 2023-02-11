@@ -22,7 +22,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
                             <li><a class="dropdown-item" href="/{{ strtolower(Auth::user()->role) }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('Profile.Settings') }}">Pengaturan</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -73,9 +73,9 @@
                 @endif
 
                 <li class="menu-item">
-                    <a href="#" class='menu-link'>
+                    <a href="{{ route('About.Us') }}" class='menu-link'>
                         <i class="bi bi-telephone"></i>
-                        <span>Hubungi Kami</span>
+                        <span>Tentang Kami</span>
                     </a>
                 </li>
 
