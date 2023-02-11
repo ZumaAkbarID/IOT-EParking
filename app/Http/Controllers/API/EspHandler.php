@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Events\ParkiranUpdate;
+use App\Events\TotalMoneyPengurus;
 use App\Http\Controllers\Controller;
 use App\Models\Machine;
 use App\Models\Parking;
@@ -30,7 +31,10 @@ class EspHandler extends Controller
         $machine = Machine::where('uuid', $parsedJson['machine_id'])->where('business_uuid', $parsedJson['business_id'])->first();
 
         // ParkiranUpdate::dispatch($str);
-        event(new ParkiranUpdate($str));
+
+        if ($parsedJson['sender'] == 'sensor') {
+            event(new ParkiranUpdate($str));
+        }
 
         if ($parsedJson['sender'] == 'sensor') {
             try {
@@ -62,13 +66,19 @@ class EspHandler extends Controller
             }
         } else {
             try {
+
+                if ($parsedJson['sender'] == 'gate_out') {
+                    $gate_out = json_encode(['amount' => $machine->price_each_sensor, 'business_uuid' => $parsedJson['business_id']]);
+                    event(new TotalMoneyPengurus($gate_out));
+                }
+
                 $insert = Report::create([
                     'business_uuid' => $parsedJson['business_id'],
                     'machine_uuid' => $parsedJson['machine_id'],
                     'gate' => $parsedJson['sender'],
                     'price_rate' => $machine->price_each_sensor
                 ]);
-                Log::info("Gate In ID : " . $insert->id);
+                Log::info($parsedJson['sender'] . " ID : " . $insert->id);
 
                 return response()->json(['status' => true]);
             } catch (\Exception $e) {

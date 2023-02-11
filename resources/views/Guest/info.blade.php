@@ -185,7 +185,6 @@
         var channel = pusher.subscribe('update-parkiran');
 
         channel.bind('event-parkiran-' + $('#uuid').val(), function(response) {
-            console.log(response);
             let data = JSON.parse(response.json);
             if (data.sender == 'sensor') {
                 $('#used_' + data.machine_id).val(data.inside);

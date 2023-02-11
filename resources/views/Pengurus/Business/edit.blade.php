@@ -51,7 +51,7 @@
 
                             <div class="form-group mt-5">
                                 <img src="{{ asset('storage') . '/' . $data->business_thumbnail }}" width="300"
-                                    class="img-fluid">
+                                    class="img-fluid" id="thumbnail">
                             </div>
 
                             <div class="form-group">
@@ -100,4 +100,18 @@
 
 @section('dashboard_script')
     @include('Layouts.sweetalert2')
+    <script>
+        $('#business_thumbnail').change(function() {
+            const file = this.files[0];
+            console.log(file);
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    console.log(event.target.result);
+                    $('#thumbnail').attr('src', event.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 @endsection

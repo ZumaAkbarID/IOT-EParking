@@ -47,8 +47,12 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Total Pendapatan</h6>
+                                        <input type="hidden" name="" id="money_all"
+                                            value="{{ $report['money_all'] }}">
                                         <h6 class="font-extrabold mb-0">
-                                            {{ number_format($report['money_all'], 0, ',', '.') }}</h6>
+                                            Rp. <span
+                                                id="money_all_holder">{{ number_format($report['money_all'], 0, ',', '.') }}</span>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +115,34 @@
 @endsection
 
 @section('dashboard_script')
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+        // Pusher.logToConsole = true;
+
+        let uuid = "{{ Auth::user()->business_uuid }}";
+
+        let money_all = $('#money_all').val();
+
+        var pusher = new Pusher('077a1f50c5eac9602b7b', {
+            cluster: 'ap1',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('update-pengurus');
+
+        channel.bind('event-pengurus-' + uuid, function(response) {
+            let data = JSON.parse(response.json);
+            $('#used_' + data.machine_id).val(data.inside);
+
+            let money_all = parseInt($('#money_all').val());
+
+            money_all += parseInt(data.amount);
+
+            $('#money_all_holder').empty();
+            $('#money_all_holder').html(new Intl.NumberFormat('en-DE').format(money_all));
+            $('#money_all').val(money_all);
+        });
+    </script>
     <script src="{{ asset('/') }}assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script>
         var optionsProfileVisit = {
