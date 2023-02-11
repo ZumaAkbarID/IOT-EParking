@@ -6,13 +6,10 @@
             <div class="card-header">
                 <h4 class="card-title">Selamat datang di E-Parking</h4>
             </div>
-            <div class="card-body">
-                <p class="">E-Parking adalah aplikasi ini akwakwkawkakw. Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Nesciunt, tempore exercitationem ut, illo incidunt eligendi officiis, blanditiis
-                    vitae quisquam praesentium dolore hic sed. Voluptates blanditiis debitis, adipisci nobis ex harum
-                    accusantium aliquid quam reiciendis, tempora, odio porro qui error laboriosam voluptate omnis
-                    ratione quibusdam distinctio suscipit. Rem quia quo labore?</p>
-            </div>
+            {{-- <div class="card-body">
+                <p class="">E-Parking adalah aplikasi berbasis web yang memudahkan pengunjung untuk mengecek
+                    ketersediaan parkiran secara realtime sebelum mengunjungi lokasi.</p>
+            </div> --}}
         </div>
 
         <div class="card mt-5">
