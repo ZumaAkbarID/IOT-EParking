@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ url('/') }}"><img src="{{ asset('/') }}assets/images/logo/logo.svg" alt="Logo"
+                    <a href="{{ url('/') }}"><img src="{{ asset('/') }}assets/images/logo/logo.png" alt="Logo"
                             srcset="" /></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -47,14 +47,14 @@
 
                     <li class="sidebar-item @if (Request::segment(1) == 'admin' && Request::segment(2) == null) active @endif">
                         <a href="{{ route('Admin.Dashboard') }}" class="sidebar-link">
-                            <i class="bi bi-grid-fill"></i>
+                            <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item has-sub @if (Request::segment(2) == 'submission') active @endif">
                         <a href="#" class="sidebar-link">
-                            <i class="bi bi-stack"></i>
+                            <i class="bi bi-building-add"></i>
                             <span>Pengajuan Usaha</span>
                         </a>
                         <ul class="submenu @if (Request::segment(2) == 'submission') active @endif">
@@ -68,7 +68,7 @@
 
                     <li class="sidebar-item has-sub @if (Request::segment(2) == 'business' || Request::segment(2) == 'machine') active @endif">
                         <a href="#" class="sidebar-link">
-                            <i class="bi bi-stack"></i>
+                            <i class="bi bi-building-gear"></i>
                             <span>Usaha</span>
                         </a>
                         <ul class="submenu @if (Request::segment(2) == 'business' || Request::segment(2) == 'machine') active @endif">
@@ -82,7 +82,7 @@
 
                     <li class="sidebar-item has-sub @if (Request::segment(2) == 'user') active @endif">
                         <a href="#" class="sidebar-link">
-                            <i class="bi bi-stack"></i>
+                            <i class="bi bi-people"></i>
                             <span>Akun</span>
                         </a>
                         <ul class="submenu @if (Request::segment(2) == 'user') active @endif">
@@ -112,15 +112,22 @@
 
                     <li class="sidebar-item @if (Request::segment(1) == 'pengurus' && Request::segment(2) == null) active @endif">
                         <a href="/{{ strtolower(Auth::user()->role) }}" class="sidebar-link">
-                            <i class="bi bi-grid-fill"></i>
+                            <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item @if (Request::segment(2) == 'business') active @endif">
                         <a href="{{ route('Pengurus.Business.Edit') }}" class="sidebar-link">
-                            <i class="bi bi-grid-fill"></i>
+                            <i class="bi bi-building-gear"></i>
                             <span>Edit Usaha</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item @if (Request::segment(2) == 'machine') active @endif">
+                        <a href="{{ route('Pengurus.Machine.All') }}" class="sidebar-link">
+                            <i class="bi bi-car-front"></i>
+                            <span>Edit Mesin</span>
                         </a>
                     </li>
                 @endif

@@ -5,7 +5,7 @@
                 @if (!is_null(Request::segment(1)))
                     <a href="{{ url('/') }}"><i class="bi bi-chevron-left"></i></a>
                 @endif
-                <a href="{{ url('/') }}"><img src="{{ asset('/') }}assets/images/logo/logo.svg" alt="Logo"></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('/') }}assets/images/logo/logo.png" alt="Logo"></a>
             </div>
 
             <div class="header-top-right">

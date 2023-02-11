@@ -14,7 +14,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('Admin.Dashboard') }}">Dashboard</a>
+                                <a href="/{{ strtolower(Auth::user()->role) }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Mesin
@@ -33,12 +33,6 @@
                     <input type="hidden" name="business_uuid" value="{{ $business->uuid }}">
 
                     <div class="form-group">
-                        <label for="">Nama Usaha (Tidak bisa dirubah)</label>
-                        <input type="text" name="" id="" class="form-control" readonly
-                            value="{{ $business->business_name }}">
-                    </div>
-
-                    <div class="form-group">
                         <label for="">ID Mesin (Tidak bisa dirubah)</label>
                         <input type="text" name="uuid" id="" class="form-control" readonly
                             value="{{ $data->uuid }}">
@@ -52,7 +46,8 @@
 
                     <div class="form-group">
                         <label for="total_sensor">Total Sensor</label>
-                        <input type="number" name="total_sensor" id="total_sensor" required
+                        <p class="text-muted">Request pada Admin untuk penambahan atau pengurangan sensor</p>
+                        <input type="number" name="total_sensor" id="total_sensor" readonly
                             value="{{ $data->total_sensor }}" class="form-control">
                     </div>
 
@@ -64,7 +59,7 @@
 
                     <div class="form-group text-end mt-3">
                         <button type="submit" class="btn btn-primary">Perbarui Data Mesin</button>
-                        <a href="{{ route('Admin.Machine.View', $business->uuid) }}" class="btn btn-danger">Batal</a>
+                        <a href="{{ route('Pengurus.Machine.All') }}" class="btn btn-danger">Batal</a>
                     </div>
 
                 </form>

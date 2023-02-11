@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\Report\View as AdminReportView;
 // Prngurus
 use App\Http\Controllers\Pengurus\Dashboard as PengurusDashboard;
 use App\Http\Controllers\Pengurus\Business\Edit as PengurusBusinessEdit;
+use App\Http\Controllers\Pengurus\Machine\Edit as PengurusMachineEdit;
+use App\Http\Controllers\Pengurus\Machine\View as PengurusMachineView;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -120,5 +122,12 @@ Route::group(['middleware' => ['auth', 'isPengurus'], 'prefix' => 'pengurus'], f
     Route::group(['prefix' => 'business'], function () {
         Route::get('', [PengurusBusinessEdit::class, 'form'])->name('Pengurus.Business.Edit');
         Route::post('', [PengurusBusinessEdit::class, 'process']);
+    });
+
+    // Business
+    Route::group(['prefix' => 'machine'], function () {
+        Route::get('', [PengurusMachineView::class, 'index'])->name('Pengurus.Machine.All');
+        Route::get('/edit/{uuid}', [PengurusMachineEdit::class, 'form'])->name('Pengurus.Machine.Edit');
+        Route::post('/edit/{uuid}', [PengurusMachineEdit::class, 'process']);
     });
 });
