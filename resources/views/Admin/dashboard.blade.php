@@ -127,7 +127,7 @@
                                                     </td>
                                                     <td class="col-auto">
                                                         <p class="mb-0">
-                                                            <a
+                                                            <a class="badge bg-primary"
                                                                 href="{{ route('Admin.User.Edit', $item->submiter_phone_number) }}">{{ $item->submiter_name }}</a>
                                                         </p>
                                                     </td>
@@ -141,12 +141,8 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if ($item->status !== 'approved')
-                                                            <a
-                                                                href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a>
-                                                        @else
-                                                            Tidak ada
-                                                        @endif
+                                                        <a class="badge bg-info"
+                                                            href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a>
                                                     </td>
                                                 </tr>
                                             @empty

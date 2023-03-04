@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="form-group text-end mt-3">
-                        <button type="submit" class="btn btn-primary">Perbarui Mesin</button>
+                        <button type="submit" class="btn btn-primary">Tambah Mesin</button>
                         <a href="{{ route('Admin.Machine.View', $business->uuid) }}" class="btn btn-danger">Batal</a>
                     </div>
 

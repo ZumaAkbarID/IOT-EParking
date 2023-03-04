@@ -187,24 +187,34 @@
         channel.bind('event-parkiran-' + $('#uuid').val(), function(response) {
             let data = JSON.parse(response.json);
             if (data.sender == 'sensor') {
-                $('#used_' + data.machine_id).val(data.inside);
 
-                let total = $('#total').val();
-                let used = 0;
+                if (data.message !== undefined && data.message !== '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: data.message
+                    });
+                } else {
+                    $('#used_' + data.machine_id).val(data.inside);
 
-                @foreach ($machines as $machine)
-                    used += parseInt($('#used_{{ $machine->uuid }}').val());
-                @endforeach
+                    let total = $('#total').val();
+                    let used = 0;
 
-                $('#placeholder_available').empty();
-                $('#placeholder_available').html(total - used);
+                    @foreach ($machines as $machine)
+                        used += parseInt($('#used_{{ $machine->uuid }}').val());
+                    @endforeach
 
-                $('#placeholder_used').empty();
-                $('#placeholder_used').html(used);
+                    $('#placeholder_available').empty();
+                    $('#placeholder_available').html(total - used);
 
-                let uuid = $('#uuid').val();
+                    $('#placeholder_used').empty();
+                    $('#placeholder_used').html(used);
 
-                getTb(uuid, data.machine_id);
+                    let uuid = $('#uuid').val();
+
+                    getTb(uuid, data.machine_id);
+                }
+
             }
         });
     </script>

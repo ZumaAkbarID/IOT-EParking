@@ -5,7 +5,7 @@
                 <p>&copy; {{ date('Y') }}</p>
             </div>
             <div class="float-end">
-                <p>Developed with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                <p>Created with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
                         href='{{ route('About.Us') }}'>E-Parking
                         Team</a></p>
             </div>

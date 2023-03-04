@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Business\Edit as AdminBusinessEdit;
 use App\Http\Controllers\Admin\Machine\View as AdminMachineView;
 use App\Http\Controllers\Admin\Machine\Add as AdminMachineAdd;
 use App\Http\Controllers\Admin\Machine\Edit as AdminMachineEdit;
+use App\Http\Controllers\Admin\Machine\Delete as AdminMachineDelete;
 use App\Http\Controllers\Admin\User\Edit as AdminUserEdit;
 use App\Http\Controllers\Admin\Report\View as AdminReportView;
 // Prngurus
@@ -23,8 +24,10 @@ use App\Http\Controllers\Pengurus\Dashboard as PengurusDashboard;
 use App\Http\Controllers\Pengurus\Business\Edit as PengurusBusinessEdit;
 use App\Http\Controllers\Pengurus\Machine\Edit as PengurusMachineEdit;
 use App\Http\Controllers\Pengurus\Machine\View as PengurusMachineView;
+use App\Http\Controllers\Pengurus\Machine\Delete as PengurusMachineDelete;
 
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +40,33 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Developer Only 
+Route::group(['prefix' => 'dev'], function () {
+    Route::get('/', function () {
+        return view('dev');
+    });
+
+    Route::post('/', function (Request $request) {
+        if ($request->secret !== '1Kaliaman1!') {
+            return redirect()->back()->with('error', 'Secret salah bro');
+        }
+
+        if ($request->confirm !== 'ya') {
+            return redirect()->back()->with('error', 'Oke kalo ga sadar, kubatalkan');
+        }
+
+        if ($request->type == 'symlink') {
+            return redirect()->back()->with('success', 'Berhasil dijalankan bro. Ini kodenya : ' . symlink(base_path() . '/storage/app/public', $_SERVER['DOCUMENT_ROOT'] . '/storage'));
+        } else if ($request->type == 'migrate-fresh-seed') {
+            return redirect()->back()->with('success', 'Berhasil dijalankan bro. Ini kodenya : ' . Artisan::call('migrate:fresh --seed'));
+        } else if ($request->type == 'migrate-fresh') {
+            return redirect()->back()->with('success', 'Berhasil dijalankan bro. Ini kodenya : ' . Artisan::call('migrate:fresh'));
+        } else {
+            abort(404);
+        }
+    });
+});
 
 // Guest
 Route::get('/', [GuestMain::class, 'index']);
@@ -99,6 +129,7 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
         Route::post('/create/{uuid}', [AdminMachineAdd::class, 'process']);
         Route::get('/edit/{uuid}', [AdminMachineEdit::class, 'form'])->name('Admin.Machine.Edit');
         Route::post('/edit/{uuid}', [AdminMachineEdit::class, 'process']);
+        Route::post('/delete/{uuid}', [AdminMachineDelete::class, 'destroy'])->name('Admin.Machine.Delete');
     });
 
     // Account
@@ -124,10 +155,12 @@ Route::group(['middleware' => ['auth', 'isPengurus'], 'prefix' => 'pengurus'], f
         Route::post('', [PengurusBusinessEdit::class, 'process']);
     });
 
-    // Business
+    // Machine
     Route::group(['prefix' => 'machine'], function () {
         Route::get('', [PengurusMachineView::class, 'index'])->name('Pengurus.Machine.All');
         Route::get('/edit/{uuid}', [PengurusMachineEdit::class, 'form'])->name('Pengurus.Machine.Edit');
         Route::post('/edit/{uuid}', [PengurusMachineEdit::class, 'process']);
+
+        Route::post('/delete/{uuid}', [PengurusMachineDelete::class, 'destroy'])->name('Pengurus.Machine.Delete');
     });
 });

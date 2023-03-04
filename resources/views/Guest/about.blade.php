@@ -13,7 +13,7 @@
                                     <div class="card-header text-center">
                                         <h4 class="card-title" style="font-size: 20px !important;">Niken Lismiati</h4>
                                         <p class="text-center">
-                                            22.11.47xx
+                                            22.11.4797
                                         </p>
                                     </div>
                                     <h1 class="price">22 IF 06</h1>

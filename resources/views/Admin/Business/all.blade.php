@@ -76,12 +76,13 @@
                             <tbody>
                                 @forelse ($data['aktif'] as $item)
                                     <tr>
-                                        <td><a href="{{ route('Admin.Submission.Edit', $item->submission_uuid) }}">Lihat
+                                        <td><a class="badge bg-primary"
+                                                href="{{ route('Admin.Submission.Edit', $item->submission_uuid) }}">Lihat
                                                 Form</a></td>
                                         <td>
                                             @foreach ($account as $acc)
                                                 @if ($acc->business_uuid == $item->uuid)
-                                                    <a
+                                                    <a class="badge bg-primary"
                                                         href="{{ route('Admin.User.Edit', $acc->uuid) }}">{{ $acc->name }}</a>
                                                 @endif
                                             @endforeach
@@ -93,9 +94,11 @@
                                         </td>
                                         <td>{{ $item->business_description }}</td>
                                         <td>{{ $item->business_address }}</td>
-                                        <td><a href="{{ route('Admin.Machine.View', $item->uuid) }}">Lihat Mesin</a></td>
+                                        <td><a class="badge bg-primary"
+                                                href="{{ route('Admin.Machine.View', $item->uuid) }}">Lihat Mesin</a></td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
-                                        <td><a href="{{ route('Admin.Business.Edit', $item->uuid) }}">Edit</a></td>
+                                        <td><a class="badge bg-info"
+                                                href="{{ route('Admin.Business.Edit', $item->uuid) }}">Edit</a></td>
                                     </tr>
                                 @empty
                                 @endforelse
@@ -127,7 +130,8 @@
                             <tbody>
                                 @forelse ($data['non-aktif'] as $item)
                                     <tr>
-                                        <td><a href="{{ route('Admin.Submission.Edit', $item->submission_uuid) }}">Lihat
+                                        <td><a class="badge bg-primary"
+                                                href="{{ route('Admin.Submission.Edit', $item->submission_uuid) }}">Lihat
                                                 Form</a></td>
                                         <td>{{ $item->business_name }}</td>
                                         <td class="text-center">
@@ -136,9 +140,11 @@
                                         </td>
                                         <td>{{ $item->business_description }}</td>
                                         <td>{{ $item->business_address }}</td>
-                                        <td><a href="{{ route('Admin.Machine.View', $item->uuid) }}">Lihat Mesin</a></td>
+                                        <td><a class="badge bg-primary"
+                                                href="{{ route('Admin.Machine.View', $item->uuid) }}">Lihat Mesin</a></td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
-                                        <td><a href="{{ route('Admin.Business.Edit', $item->uuid) }}">Edit</a></td>
+                                        <td><a class="badge bg-info"
+                                                href="{{ route('Admin.Business.Edit', $item->uuid) }}">Edit</a></td>
                                     </tr>
                                 @empty
                                 @endforelse

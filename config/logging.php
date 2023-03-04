@@ -63,6 +63,36 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        'errorAPI' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/esp-error.log'),
+            'level' => 'error'
+        ],
+
+        'parkedAPI' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/esp-parked.log'),
+            'level' => 'info'
+        ],
+
+        'reportAPI' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/esp-report.log'),
+            'level' => 'info'
+        ],
+
+        'reportErrorAPI' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/esp-report-error.log'),
+            'level' => 'error'
+        ],
+
+        'gatesAPI' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/esp-gates.log'),
+            'level' => 'info'
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
@@ -85,7 +115,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
         ],
 

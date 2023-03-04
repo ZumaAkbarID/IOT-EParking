@@ -17,16 +17,24 @@ class EspHandler extends Controller
     {
         $str = $request->getContent();
 
-        if (substr_count($str, "#") !== 1) {
-            Log::error('DATA MENUMPUK');
-            return 1;
-        }
-
         $str = str_replace("'", '"', $str);
         $str = substr($str, 1);
         $str = str_replace('#', '', $str);
         $parsedJson = json_decode($str, true);
-        // return Log::info($str);
+
+        $countCrash = substr_count($request->getContent(), "#");
+        if ($countCrash !== 1) {
+            Log::error('DATA MENUMPUK');
+            $errorData = [];
+            $errorData['sender'] = $parsedJson['sender'];
+            $errorData['business_id'] = $parsedJson['business_id'];
+            $errorData['message'] = 'Terjadi penumpukan data';
+            $errorJson = json_encode($errorData);
+
+            event(new ParkiranUpdate($errorJson));
+            Log::channel('errorAPI')->error($errorJson);
+            return $countCrash;
+        }
 
         $machine = Machine::where('uuid', $parsedJson['machine_id'])->where('business_uuid', $parsedJson['business_id'])->first();
 
@@ -49,19 +57,19 @@ class EspHandler extends Controller
                         'map' => json_encode($parsedJson['map']),
                     ]);
 
-                    Log::info("Parking Inputed id : " . $input->id . ". Old Parking Deleted");
+                    Log::channel('parkedAPI')->info("Parking Inputed id : " . $input->id . ". Old Parking Deleted");
                 } else {
                     $input = Parking::create([
                         'business_uuid' => $parsedJson['business_id'],
                         'machine_uuid' => $parsedJson['machine_id'],
                         'map' => json_encode($parsedJson['map']),
                     ]);
-                    Log::info("Parking Inputed id : " . $input->id);
+                    Log::channel('parkedAPI')->info("Parking Inputed id : " . $input->id);
                 }
 
                 return response()->json(['status' => true]);
             } catch (\Exception $e) {
-                Log::error("Error When Inputing API Map to DB : " . $e);
+                Log::channel('errorAPI')->error("Error When Inputing API Map to DB : " . $e);
                 return response()->json(['status' => false]);
             }
         } else {
@@ -78,11 +86,14 @@ class EspHandler extends Controller
                     'gate' => $parsedJson['sender'],
                     'price_rate' => $machine->price_each_sensor
                 ]);
-                Log::info($parsedJson['sender'] . " ID : " . $insert->id);
+                Log::channel('reportAPI')->info($parsedJson['sender'] . " ID : " . $insert->id);
 
                 return response()->json(['status' => true]);
             } catch (\Exception $e) {
-                Log::error("Error When Inputing API Gate to DB : " . $e);
+                Log::channel('reportErrorAPI')->error("Error Cuy, When Inputing API Gate to DB : " . $e);
+                $gate_out = json_encode(['message' => "Gagal melakukan entry data gerbang", 'business_uuid' => $parsedJson['business_id']]);
+                event(new TotalMoneyPengurus($gate_out));
+
                 return response()->json(['status' => false]);
             }
         }

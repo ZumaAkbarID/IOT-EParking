@@ -16,7 +16,7 @@
                             <div class="form-group mb-3">
                                 <label for="phone">Nomor HP</label>
                                 <input type="text" name="phone" id="phone" class="form-control" required
-                                    placeholder="08xxx">
+                                    placeholder="08xxx" value="{{ old('phone') }}">
                             </div>
 
                             <div class="form-group mb-3">
@@ -31,7 +31,7 @@
                         </form>
 
                         <div class="">
-                            <p>Lupa password? <a href="">Hubungi Admin</a></p>
+                            <p>Lupa password? <a href="{{ route('About.Us') }}">Hubungi Admin</a></p>
                         </div>
 
                     </div>

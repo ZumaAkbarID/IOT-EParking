@@ -82,7 +82,7 @@
                                         <td>{{ $item->role }}</td>
                                         @foreach ($data['business'] as $busi)
                                             @if ($busi->uuid == $item->business_uuid)
-                                                <td><a
+                                                <td><a class="badge bg-primary"
                                                         href="{{ route('Admin.Business.Edit', $busi->uuid) }}">{{ $busi->business_name }}</a>
                                                 </td>
                                                 @php
@@ -91,14 +91,19 @@
                                             @endif
                                         @endforeach
                                         @if ($foundBusi == false)
-                                            <td>Tidak ada</td>
+                                            <td>
+                                                <p class="badge bg-secondary m-0">Tidak ada</p>
+                                            </td>
                                         @endif
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->updated_at)) }}</td>
                                         @if ($item->role == 'Admin')
-                                            <td>Tidak ada</td>
+                                            <td>
+                                                <p class="badge bg-secondary m-0">Tidak ada</p>
+                                            </td>
                                         @else
-                                            <td><a href="{{ route('Admin.User.Edit', $item->uuid) }}">Edit</a></td>
+                                            <td><a class="badge bg-info"
+                                                    href="{{ route('Admin.User.Edit', $item->uuid) }}">Edit</a></td>
                                         @endif
                                     </tr>
                                     @php

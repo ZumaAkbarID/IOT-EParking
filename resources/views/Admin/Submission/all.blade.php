@@ -96,7 +96,8 @@
                                         <td>{{ $item->business_description }}</td>
                                         <td>{{ $item->business_address }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
-                                        <td><a href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a></td>
+                                        <td><a class="badge bg-info"
+                                                href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a></td>
                                     </tr>
                                 @empty
                                 @endforelse
@@ -127,7 +128,7 @@
                             <tbody>
                                 @forelse ($data['approved'] as $item)
                                     <tr>
-                                        <td><a
+                                        <td><a class="badge bg-primary"
                                                 href="{{ route('Admin.User.Edit', $item->submiter_phone_number) }}">{{ $item->submiter_name }}</a>
                                         </td>
                                         <td>{{ $item->submiter_phone_number }}</td>
@@ -182,7 +183,8 @@
                                         <td>{{ $item->business_address }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->updated_at)) }}</td>
-                                        <td><a href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a></td>
+                                        <td><a class="badge bg-info"
+                                                href="{{ route('Admin.Submission.Edit', $item->uuid) }}">Edit</a></td>
                                     </tr>
                                 @empty
                                 @endforelse

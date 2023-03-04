@@ -100,7 +100,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Pengunjung Usaha pada tahun {{ date('Y') }}</h4>
+                                <h4>Pengunjung melalui website pada tahun {{ date('Y') }}</h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart-profile-visit"></div>
@@ -132,15 +132,24 @@
 
         channel.bind('event-pengurus-' + uuid, function(response) {
             let data = JSON.parse(response.json);
-            $('#used_' + data.machine_id).val(data.inside);
 
-            let money_all = parseInt($('#money_all').val());
+            if (data.message !== undefined && data.message !== '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: data.message
+                });
+            } else {
+                $('#used_' + data.machine_id).val(data.inside);
 
-            money_all += parseInt(data.amount);
+                let money_all = parseInt($('#money_all').val());
 
-            $('#money_all_holder').empty();
-            $('#money_all_holder').html(new Intl.NumberFormat('en-DE').format(money_all));
-            $('#money_all').val(money_all);
+                money_all += parseInt(data.amount);
+
+                $('#money_all_holder').empty();
+                $('#money_all_holder').html(new Intl.NumberFormat('en-DE').format(money_all));
+                $('#money_all').val(money_all);
+            }
         });
     </script>
     <script src="{{ asset('/') }}assets/extensions/apexcharts/apexcharts.min.js"></script>

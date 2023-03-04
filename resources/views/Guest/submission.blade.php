@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label for="business_name"></label>
                                 <input type="text" name="business_name" id="business_name" placeholder="Nama Usaha"
-                                    class="form-control" required value="{{ old('business_name') }}">
+                                    class="form-control" required value="{{ old('business_name') }}" minlength="2">
                             </div>
 
                             <div class="form-group">

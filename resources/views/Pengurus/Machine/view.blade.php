@@ -80,7 +80,10 @@
                                         <td>{{ number_format($item->price_each_sensor, 0, ',', '.') }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</td>
                                         <td>{{ date('d-m-Y H:i:s', strtotime($item->updated_at)) }}</td>
-                                        <td><a href="{{ route('Pengurus.Machine.Edit', $item->uuid) }}">Edit</a></td>
+                                        <td><a class="badge bg-info"
+                                                href="{{ route('Pengurus.Machine.Edit', $item->uuid) }}">Edit</a> | <a
+                                                class="badge bg-danger" href="#"
+                                                onclick="deleteMachine('{{ $item->uuid }}')">Hapus</a></td>
                                     </tr>
                                 @empty
                                 @endforelse
@@ -121,5 +124,62 @@
             });
         }
         showTb('mesin');
+
+        function deleteMachine(uuid) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data mesin akan terhapus, namun laporan keuangan akan tetap ada",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "post",
+                        url: "/pengurus/machine/delete/" + uuid,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            uuid: uuid
+                        },
+                        success: function(data) {
+                            if (data.status == true) {
+                                let timerInterval;
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil dihapus!',
+                                    html: 'auto refresh dalam <b></b> milidetik.',
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                        const b = Swal.getHtmlContainer().querySelector(
+                                            'b');
+                                        timerInterval = setInterval(() => {
+                                            b.textContent = Swal.getTimerLeft()
+                                        }, 100);
+                                    },
+                                    willClose: () => {
+                                        clearInterval(timerInterval);
+                                    }
+                                }).then((result) => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    html: data.message
+                                });
+                            }
+                        },
+                    });
+                }
+            })
+        }
     </script>
 @endsection
